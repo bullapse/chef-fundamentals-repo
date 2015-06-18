@@ -1,0 +1,67 @@
+---
+driver:
+  # All the following top level driver options can be set in your
+  # ~/.kitchen/config.yml to suit your personal needs
+
+  # The following driver options depend upon values set from an OpenStack
+  # RC file.  See OpenStack -> Access & Security -> API Access for the
+  # download OpenStack RC File button.
+  openstack_username: <%= ENV['OS_USERNAME'] %>
+  openstack_api_key: <%= ENV['OS_PASSWORD'] %>
+  openstack_auth_url: <%= ENV['OS_AUTH_URL'] %>/tokens
+  openstack_tenant: <%= ENV['OS_TENANT_NAME'] %>
+
+  # This driver option is the Target standard value to use for an IP addr.
+  # It must match the external network your OS network is connected with.
+  # floating_ip_pool: ext_vlan1722_net
+  floating_ip_pool: ext_vlan1767_net
+  network_ref: /1767/
+
+  # The following driver option is a recommended name for the SSH keypair.
+  # See OpenStack -> Access & Security -> Keypairs to manage your
+  # personal OpenStack SSH keypairs.
+  key_name: <%= ENV['OS_USERNAME'] %>_openstack
+
+provisioner:
+  name: chef_zero
+  chef_omnibus_url: http://www.getchef.com/chef/install.sh
+  require_chef_omnibus: "11.16.4"
+
+platforms:
+- name: centos-openstack
+  driver:
+    name: openstack
+    flavor_ref: xsmem-1vcpu
+    image_ref: "centos6.6-smallraw"
+    username: cloud-user
+    private_key_path: <%= ENV['HOME'] %>/.ssh/id_rsa
+    public_key_path: <%= ENV['HOME'] %>/.ssh/id_rsa.pub
+- name: rhel6-vagrant
+  driver_plugin: vagrant
+  driver_config:
+    box: 2014r3-base5bre
+    box_url: https://uat.binrepo.target.com/artifactory/infra-automation/vagrant-boxes/tgt/2014r3/tgt-2014r3-base5.box
+    customize:
+      memory: 2048
+      cpus: 2
+    network:
+    - ["forwarded_port", {guest: 8081, host: 8080}]
+    - ["forwarded_port", {guest: 443, host: 4443}]
+- name: rhel6-vagrant2
+  driver_plugin: vagrant
+  driver_config:
+    box: 2014r3-base5
+    box_url: https://binrepo.target.com/artifactory/chef-training/tgt/tgt/2014r3/tgt-2014r3-base5.box
+    customize:
+      memory: 2048
+      cpus: 2
+    network:
+    - ["forwarded_port", {guest: 8081, host: 8080}]
+    - ["forwarded_port", {guest: 443, host: 4443}]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[apache::default]
+    attributes:
+      dev_mode: true
