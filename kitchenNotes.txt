@@ -3,3 +3,9 @@ rpm -v
 Local Sandbox Enviornment
 kitchen login <name> (2)**
 exit to exit VM
+kitchen converge 2 (same as kitchen create, but also downlaods
+  chef and executes the recipe that is in the suite)
+
+  ERROR (undefined method)
+    dependency issue -- attribute issue
+    fix in default attribute file
