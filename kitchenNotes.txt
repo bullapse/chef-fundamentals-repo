@@ -1,0 +1,5 @@
+kitchen create default-rhel6-vagrant2
+rpm -v
+Local Sandbox Enviornment
+kitchen login <name> (2)**
+exit to exit VM
