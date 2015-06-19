@@ -1,3 +1,5 @@
+Kitchen
+------------
 kitchen create default-rhel6-vagrant2
 rpm -v
 Local Sandbox Enviornment
@@ -9,3 +11,26 @@ kitchen converge 2 (same as kitchen create, but also downlaods
   ERROR (undefined method)
     dependency issue -- attribute issue
     fix in default attribute file
+kitchen verify
+Rubular.com
+
+FoodCritic
+---------------
+http://acrmp.github.io/foodcritic/#FC008
+foodcritic --tags /FC003 .
+foodcritic --include ../../foodcritic/etsy .
+Advantage of Foodcritic has over Serverspec-- very fast runtime
+Include specific test -- --tags /lkadsf
+Where do Foodcritic tests execute? -- Locally
+How can you include additional Foodcritic test? --include dirname
+
+Rubocop
+---------------
+rubocop
+mask offenses using hte rubocop configuration file .rubocop.yml
+rubocop --auto-gen-config
+Fixing rubocop offenses -- Slide 120
+
+How can ChefSpec imporve your cookbook development process?
+  In the development process you are writting code where you are expecting chef to make changes
+  It does test to check that Chef does the code that you told it to do.

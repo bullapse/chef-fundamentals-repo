@@ -1,6 +1,6 @@
 name             'apache'
-maintainer       'YOUR_COMPANY_NAME'
-maintainer_email 'YOUR_EMAIL'
+maintainer       'Target'
+maintainer_email 'spencer.g.bull@target.com'
 license          'All rights reserved'
 description      'Installs/Configures apache'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
